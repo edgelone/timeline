@@ -1,6 +1,9 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
+#project
+/src/main/resources/properties/qn.properties
+
 ### STS ###
 .apt_generated
 .classpath
