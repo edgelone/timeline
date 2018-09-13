@@ -4,6 +4,7 @@ import cn.edgelone.timeline.dao.ImageDao;
 import cn.edgelone.timeline.model.Image;
 import cn.edgelone.timeline.util.QiniuUtil;
 import cn.edgelone.timeline.vo.ImageInfo;
+import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.BeanUtils;
@@ -54,7 +55,7 @@ public class ImageHandler {
       file.deleteOnExit();
       Image image = new Image(fileName);
       //FIXME why not effect?
-      imageDao.insert(image).then();
+      imageDao.save(image).then();
       return ServerResponse.ok()
           .contentType(MediaType.APPLICATION_JSON_UTF8)
           .body(BodyInserters.fromObject("success"));
@@ -65,7 +66,7 @@ public class ImageHandler {
 
   public Mono<ServerResponse> queryImages(ServerRequest request) {
     Map<String, String> params = request.queryParams().toSingleValueMap();
-    String fileName = String.valueOf(params.get("file_name"));
+    String fileName = Strings.emptyToNull(params.get("file_name"));
 
     Flux<Image> images;
     if (StringUtils.isEmpty(fileName)) {

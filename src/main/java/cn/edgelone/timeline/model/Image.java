@@ -16,15 +16,16 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Document(collection = "images")
 public class Image {
   @Id
   private String id;
   private String fileName;
-  private Instant createTime;
+  private Long createTime;
 
   public Image(String fileName) {
     this.id = UUID.randomUUID().toString();
     this.fileName = fileName;
-    this.createTime = Instant.now();
+    this.createTime = Instant.now().toEpochMilli();
   }
 }

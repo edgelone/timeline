@@ -17,6 +17,4 @@ public class ImageRoute {
     return route(POST("/images").and(accept(MediaType.ALL)), imageHandler::createImage)
         .andRoute(GET("/images").and(accept(MediaType.APPLICATION_JSON)), imageHandler::queryImages);
   }
-
-
 }
